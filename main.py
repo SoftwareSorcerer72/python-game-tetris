@@ -38,7 +38,7 @@ def check_borders():
     return True
 
 while True:
-    dx = 0
+    dx, rotate = 0, False
     game_sc.fill(pygame.Color('black'))
     #for control
     for event in pygame.event.get():
@@ -51,6 +51,8 @@ while True:
                 dx = 1
             elif event.key == pygame.K_DOWN:
                 anim_limit = 100
+            elif event.key == pygame.K_UP:
+                rotate = True
     #move x
     figure_old = deepcopy(figure)
     for i in range(4):
@@ -72,6 +74,19 @@ while True:
                 figure = deepcopy(choice(figures))
                 anim_limit = 2000
                 break    
+
+    #rotate
+    center = figure[0]
+    figure_old = deepcopy(figure)
+    if rotate:
+        for i in range(4):
+            x = figure[i].y - center.y
+            y = figure[i].x - center.x
+            figure[i].x = center.x - x
+            figure[i].y = center.y + y
+            if not check_borders():
+                figure = deepcopy(figure_old)
+                break
 
 
         #draw grid
