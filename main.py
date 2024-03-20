@@ -174,7 +174,19 @@ while True:
     sc.blit(title_tetris, (485, 10))
     sc.blit(title_score, (535, 780))
     sc.blit(font.render(str(score), True, pygame.Color('white')), (550, 840))
-
+    sc.blit(font.render(record, True, pygame.Color('gold')), (550, 710))
+# game over
+    for i in range(W):
+        if field[0][i]:
+            set_record(record, score)
+        field = [[0 for i in range(W)] for j in range(H)]
+        anim_count, anim_speed, anim_limit = 0, 60, 2000
+        score = 0
+        for i_rect in grid:
+            pygame.draw.rect(game_sc, get_color(), i_rect)
+            sc.blit.rect(game_sc, get_color(), i_rect)
+            pygame.display.flip()
+            clock.tick(200)
 
 
     pygame.display.flip()
