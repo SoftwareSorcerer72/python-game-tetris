@@ -45,6 +45,8 @@ while True:
                 dx = -1
             elif event.key == pygame.K_RIGHT:
                 dx = 1
+            elif event.key == pygame.K_DOWN:
+                anim_limit = 100
     #move x
     figure_old = deepcopy(figure)
     for i in range(4):
@@ -62,6 +64,7 @@ while True:
             figure[i].y += 1
             if not check_borders():
                 figure = deepcopy(figure_old)
+                anim_limit = 2000
                 break    
 
 
