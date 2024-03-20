@@ -23,11 +23,13 @@ figures_pos = [[(-1, 0), (-2, 0), (0, 0), (1, 0)],
 figures = [[pygame.Rect(x + W // 2, y + 1, 1, 1) for x, y in fig_pos] for fig_pos in figures_pos]
 figure_rect = pygame.Rect(0, 0, TILE - 2, TILE - 2)
 
+
+anim_count, anim_speed, anim_limit = 0, 60, 2000
 figure= deepcopy(figures[3])
 
 
 def check_borders():
-    if figure[i].x < 0 or figure[i].y > W - 1:
+    if figure[i].x < 0 or figure[i].x > W - 1:
         return False
     return True
 
@@ -50,6 +52,18 @@ while True:
         if not check_borders():
             figure = deepcopy(figure_old)
             break
+
+#move y
+    anim_count += anim_speed
+    if anim_count > anim_limit:
+        anim_count = 0 
+        figure_old = deepcopy(figure)
+        for i in range(4):
+            figure[i].y += 1
+            if not check_borders():
+                figure = deepcopy(figure_old)
+                break    
+
 
         #draw grid
     [pygame.draw.rect(game_sc, (40, 40, 40), i_rect, 1) for i_rect in grid]
