@@ -5,11 +5,13 @@ from random import choice, randrange
 W, H = 10, 20
 TILE = 45
 GAME_RES = W * TILE, H * TILE
+RES = 750, 940
 FPS = 60
 
 pygame.init()
-game_sc = pygame.display.set_mode(GAME_RES)
-clock = pygame.time. Clock()
+sc = pygame.display.set_mode(RES)
+game_sc = pygame.Surface(GAME_RES)
+clock = pygame.time.Clock()
 
 grid = [pygame.Rect(x * TILE, y * TILE, TILE, TILE) for x in range(W) for y in range(H)]
 
@@ -30,6 +32,10 @@ anim_count, anim_speed, anim_limit = 0, 60, 2000
 figure= deepcopy(choice(figures))
 
 
+bg = pygame.image.load('image/bg1.jpg').convert() 
+game_bg = pygame.image.load('image/bg2.jpg').convert() 
+
+
 def check_borders():
     if figure[i].x < 0 or figure[i].x > W - 1:
         return False
@@ -39,7 +45,10 @@ def check_borders():
 
 while True:
     dx, rotate = 0, False
-    game_sc.fill(pygame.Color('black'))
+    sc.blit(bg, (0, 0))
+    sc.blit(game_sc, (20, 20))
+    game_sc.blit(game_bg, (0, 0))
+
     #for control
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
