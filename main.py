@@ -70,7 +70,7 @@ def get_record():
 def set_record(record, score):
     rec = max(int(record), score)
     with open('record', 'w') as f:
-    f.write(str(rec))
+        f.write(str(rec))
         
 
 
@@ -179,14 +179,14 @@ while True:
     for i in range(W):
         if field[0][i]:
             set_record(record, score)
-        field = [[0 for i in range(W)] for j in range(H)]
-        anim_count, anim_speed, anim_limit = 0, 60, 2000
-        score = 0
-        for i_rect in grid:
-            pygame.draw.rect(game_sc, get_color(), i_rect)
-            sc.blit.rect(game_sc, get_color(), i_rect)
-            pygame.display.flip()
-            clock.tick(200)
+            field = [[0 for i in range(W)] for j in range(H)]
+            anim_count, anim_speed, anim_limit = 0, 60, 2000
+            score = 0
+            for i_rect in grid:
+                pygame.draw.rect(game_sc, get_color(), i_rect)
+                sc.blit(game_sc, (20, 20))
+                pygame.display.flip()
+                clock.tick(200)
 
 
     pygame.display.flip()
