@@ -35,6 +35,9 @@ figure= deepcopy(choice(figures))
 bg = pygame.image.load('image/bg1.jpg').convert() 
 game_bg = pygame.image.load('image/bg2.jpg').convert() 
 
+get_color = lambda : (randrange(30, 256), randrange(30, 256), randrange(30, 256))
+color = get_color()
+
 
 def check_borders():
     if figure[i].x < 0 or figure[i].x > W - 1:
@@ -79,7 +82,8 @@ while True:
             figure[i].y += 1
             if not check_borders():
                 for i in range(4):
-                    field[figure_old[i].y][figure_old[i].x] = pygame.Color('white')
+                    field[figure_old[i].y][figure_old[i].x] = color
+                color = get_color()
                 figure = deepcopy(choice(figures))
                 anim_limit = 2000
                 break    
@@ -117,7 +121,7 @@ while True:
     for i in range(4):
         figure_rect.x = figure[i].x * TILE
         figure_rect.y = figure[i].y * TILE
-        pygame.draw.rect(game_sc, pygame.Color('white'), figure_rect)
+        pygame.draw.rect(game_sc, color, figure_rect)
     #draw field
     for y, raw in enumerate(field):
         for x, col in enumerate(raw):
