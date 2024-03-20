@@ -35,8 +35,16 @@ figure= deepcopy(choice(figures))
 bg = pygame.image.load('image/bg1.jpg').convert() 
 game_bg = pygame.image.load('image/bg2.jpg').convert() 
 
+main_font = pygame.font.Font('font/font.ttf', 65)
+font = pygame.font.Font('font/font.ttf', 45)
+
+title_tetris = main_font.render('TETRIS', True, pygame.Color('darkorange'))
+
+
 get_color = lambda : (randrange(30, 256), randrange(30, 256), randrange(30, 256))
-color = get_color()
+
+figure, next_figure = deepcopy(choice(figures)), deepcopy(choice(figures))
+color, next_color = get_color(), get_color()
 
 
 def check_borders():
@@ -83,8 +91,8 @@ while True:
             if not check_borders():
                 for i in range(4):
                     field[figure_old[i].y][figure_old[i].x] = color
-                color = get_color()
-                figure = deepcopy(choice(figures))
+                figure, color = next_figure, next_color
+                next_figure, next_color = deepcopy(choice(figures)), get_color()
                 anim_limit = 2000
                 break    
 
@@ -128,6 +136,14 @@ while True:
             if col:
                 figure_rect.x, figure_rect.y = x * TILE, y * TILE
                 pygame.draw.rect(game_sc, col, figure_rect)
+#draw next figure
+    for i in range(4):
+        figure_rect.x = next_figure[i].x * TILE + 380
+        figure_rect.y = next_figure[i].y * TILE + 185
+        pygame.draw.rect(sc, next_color, figure_rect)                
+
+#draw titles
+    sc.blit(title_tetris, (485, 10))
 
 
     pygame.display.flip()
