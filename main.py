@@ -88,7 +88,20 @@ while True:
                 figure = deepcopy(figure_old)
                 break
 
+#check lines
+    line = H - 1
+    for row in range(H - 1, -1, -1):
+        count = 0
+        for i in range(W):
+            if field[row][i]:
+                count += 1
+            field[line][i] = field[row][i]
+        if count < W:
+            line -= 1
+            
 
+
+    
         #draw grid
     [pygame.draw.rect(game_sc, (40, 40, 40), i_rect, 1) for i_rect in grid]
         #draw figure
