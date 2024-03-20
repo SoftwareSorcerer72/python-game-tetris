@@ -40,7 +40,7 @@ font = pygame.font.Font('font/font.ttf', 45)
 
 title_tetris = main_font.render('TETRIS', True, pygame.Color('darkorange'))
 title_score = font.render('score:', True, pygame.Color('green'))
-
+title_record = font.render('record:', True, pygame.Color('purple'))
 
 get_color = lambda : (randrange(30, 256), randrange(30, 256), randrange(30, 256))
 
@@ -58,7 +58,25 @@ def check_borders():
         return False
     return True
 
+
+def get_record():
+    try:
+        with open('record') as f:
+            return f.readline()
+    except FileNotFoundError:
+        with open('record', 'w') as f:
+            f.write('0')
+
+def set_record(record, score):
+    rec = max(int(record), score)
+    with open('record', 'w') as f:
+    f.write(str(rec))
+        
+
+
+
 while True:
+    record = get_record()
     dx, rotate = 0, False
     sc.blit(bg, (0, 0))
     sc.blit(game_sc, (20, 20))
